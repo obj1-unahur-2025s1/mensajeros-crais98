@@ -4,9 +4,32 @@ object paquete {
 
   method estaPago() = estaPago
   method pagarPaquete() {estaPago = true}
-  method puedeEntregarse() { 
-    destino.dejaPasar(unMensajero) &&
+  method puedeEntregarse(unMensajero) { 
+    return destino.dejaPasar(unMensajero) &&
     self.estaPago()
+  }
+}
+
+object paquetito {
+  method estaPago() = true
+  method puedeEntregarse()= true
+}
+
+object paqueton {
+  const destino = []
+
+  method agregarUnDestino(unDestino) {
+    destino.add(unDestino)
+  }
+
+  method precio() = 100 * destino.size()
+  method pagar(unImporte) {importePagado > }
+  method estaPago(){
+    return importePagado >= self.precioTotal()
+  }
+  method puedeEntregarse(unMensajero){} 
+  method puedePasarPorDestino(unMensajero){
+    return destino.inc({d => d.dejarPasar(unMensajero) })
   }
 }
 
@@ -18,7 +41,7 @@ object puenteBrooklyn {
 
 object laMatrix {
   method dejarPasar(unMensajero) {
-    unMensajero.puedeLlamar()
+    return unMensajero.puedeLlamar()
   }  
 }
 
@@ -58,3 +81,26 @@ object camion {
   }
   method peso() = 
 }
+
+object empresaMensajeria {
+  const mensajeros = []
+  
+  method mensajeros() = mensajeros
+  method contratar(unMensajero){
+    mensajeros.add(unMensajero)
+  }
+
+  method despedir(unMensajero){
+    mensajeros.remove(unMensajero)
+  }
+
+  method esGrande() = mensajeros.size() > 2
+  method puedeEntregarPaquete(){
+    return paquete.puedeEntregarse(mensajeros.first())
+  }
+
+  method pesoUltimoMensajero() = mensajeros.last().peso()
+
+}
+
+
